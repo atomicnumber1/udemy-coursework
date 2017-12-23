@@ -14,16 +14,12 @@ class ChecklistViewController: UITableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem]()
-        let rowItem = ChecklistItem()
-        rowItem.text = "Eat Ice Cream"
-        rowItem.checked = false
-        items.append(rowItem)
         super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,6 +40,12 @@ class ChecklistViewController: UITableViewController {
         return items.count
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle:
+        UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         let item = items[indexPath.row]
@@ -61,6 +63,20 @@ class ChecklistViewController: UITableViewController {
     
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
         cell.accessoryType = item.checked ? .checkmark : .none
+    }
+    
+    @IBAction func addItem(_ sender: Any) {
+        let newRowIndex = items.count
+        
+        let item = ChecklistItem()
+        item.text = "new Item"
+        item.checked = false
+        
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        
     }
 }
 
