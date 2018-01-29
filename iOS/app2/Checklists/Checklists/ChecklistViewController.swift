@@ -8,12 +8,51 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, ItemDetailViewController {
+    
+    func ItemDetailViewControllerDidCancel(_ controller: ItemDetailV) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func ItemDetailViewController(_ controller: ItemDetailV, didFinishEditing item: ChecklistItem) {
+        if let index = items.index(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureText(for: cell, with: item)
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func ItemDetailViewController(_ controller: ItemDetailV, didFinishAdding item: ChecklistItem) {
+        let index = items.count
+        let indexPath = IndexPath(row: index, section: 0)
+        items.append(item)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItem" {
+            let controller = segue.destination as! ItemDetailV
+            controller.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let controller = segue.destination as! ItemDetailV
+            controller.delegate = self
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
+        }
+    }
     
     var items: [ChecklistItem]
     
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem]()
+        let rowItem = ChecklistItem()
+        rowItem.text = "Learn Grammar"
+        rowItem.checked = false
+        items.append(rowItem)
         super.init(coder: aDecoder)
     }
     
@@ -62,7 +101,8 @@ class ChecklistViewController: UITableViewController {
     }
     
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
-        cell.accessoryType = item.checked ? .checkmark : .none
+        let label = cell.viewWithTag(1001) as! UILabel
+        label.text = item.checked ? "√" : ""
     }
     
     @IBAction func addItem(_ sender: Any) {

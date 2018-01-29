@@ -6,9 +6,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Checklists-->
         <scene sceneID="kLO-xB-raq">
@@ -19,27 +23,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="L1g-pk-nMx">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="L1g-pk-nMx">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="L1g-pk-nMx" id="427-S9-spu">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="252" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCa-XP-XBy">
-                                            <rect key="frame" x="17" y="12" width="254" height="22"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCa-XP-XBy">
+                                            <rect key="frame" x="42" y="0.0" width="210" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTm-az-rU0">
+                                            <rect key="frame" x="16" y="0.0" width="12" height="42"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="sCa-XP-XBy" firstAttribute="leading" secondItem="427-S9-spu" secondAttribute="leadingMargin" constant="1" id="b7E-TL-qzB"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="sCa-XP-XBy" secondAttribute="trailing" constant="1" id="eFB-u6-EYD"/>
-                                        <constraint firstItem="sCa-XP-XBy" firstAttribute="top" secondItem="427-S9-spu" secondAttribute="topMargin" constant="1" id="ukT-rH-hfN"/>
-                                        <constraint firstItem="sCa-XP-XBy" firstAttribute="bottom" secondItem="427-S9-spu" secondAttribute="bottomMargin" constant="1" id="xkH-ug-0RB"/>
-                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Oag-92-D0y" kind="show" identifier="EditItem" trigger="accessoryAction" id="d0p-JE-d37"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -50,19 +59,19 @@
                     <navigationItem key="navigationItem" title="Checklists" id="fdK-hz-SqF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="jBK-s6-mDe">
                             <connections>
-                                <segue destination="Oag-92-D0y" kind="show" id="Gbt-GI-Gqo"/>
+                                <segue destination="Oag-92-D0y" kind="show" identifier="AddItem" id="Gbt-GI-Gqo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dWk-U1-waH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="233" y="87"/>
+            <point key="canvasLocation" x="232" y="86"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="T8L-1x-GqI">
             <objects>
-                <tableViewController id="Oag-92-D0y" customClass="AddItemViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Oag-92-D0y" customClass="ItemDetailV" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Dqg-3u-b0t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +119,7 @@
                                 <action selector="cancel" destination="Oag-92-D0y" id="UuS-tm-UM4"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="gc1-oz-kWQ">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="gc1-oz-kWQ">
                             <connections>
                                 <action selector="done" destination="Oag-92-D0y" id="U5x-sk-M8V"/>
                             </connections>
@@ -145,4 +154,7 @@
             <point key="canvasLocation" x="-677" y="87"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="d0p-JE-d37"/>
+    </inferredMetricsTieBreakers>
 </document>

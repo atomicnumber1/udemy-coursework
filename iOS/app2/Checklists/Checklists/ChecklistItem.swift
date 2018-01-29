@@ -8,10 +8,15 @@
 
 import Foundation
 
-class ChecklistItem {
+class ChecklistItem: NSObject {
     
-    var text = ""
-    var checked = false
+    var text: String
+    var checked: Bool
+    
+    init(text: String = "", checked: Bool = false) {
+        self.text = text
+        self.checked = checked
+    }
     
     func toggleChecked() {
         checked = !checked
